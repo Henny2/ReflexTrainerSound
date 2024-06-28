@@ -6,16 +6,14 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        Button("Play sound"){
+            AudioServicesPlaySystemSound(1103)
+            // test
         }
-        .padding()
     }
 }
 
