@@ -10,7 +10,8 @@ import Combine
 
 struct TimerTest: View {
     @State private var timer: AnyCancellable?
-     @State private var isRunning = false
+    @State private var isRunning = false
+    var audioPlayer = AudioPlayerClass()
 
      var body: some View {
          VStack {
@@ -45,6 +46,7 @@ struct TimerTest: View {
          timer = Timer.publish(every: randomInterval, on: .main, in: .common)
              .autoconnect()
              .sink { _ in
+                 audioPlayer.playSound()
                  print("Timer triggered at interval: \(randomInterval) seconds")
                  self.timer?.cancel()
                  self.scheduleTimer() // Schedule the timer again with a new random interval
