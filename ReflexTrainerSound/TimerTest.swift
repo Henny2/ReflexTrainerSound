@@ -16,41 +16,44 @@ struct TimerTest: View {
     var audioPlayer = AudioPlayerClass()
 
      var body: some View {
-         VStack(alignment: .center) {
-             Text("Lower interval limit - Upper interval limit")
-             HStack{
-                 Spacer()
-                 TextField("Enter the lower interval limit", value: $lowerLimit, format: .number)
-                     .frame(width: 50)
-                     .multilineTextAlignment(.center)
-//                     .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/)
-                     .textFieldStyle(.roundedBorder)
+         Form {
+             VStack(alignment: .center) {
+                 Text("Lower interval limit - Upper interval limit")
+                 HStack{
+                     Spacer()
+                     TextField("Enter the lower interval limit", value: $lowerLimit, format: .number)
+                         .frame(width: 50)
+                         .multilineTextAlignment(.center)
+                     //                     .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/)
+                         .textFieldStyle(.roundedBorder)
                      
-                 
-                 
-
-                 Text("-").foregroundStyle(.secondary)
-                 TextField("Enter the upper interval limit", value: $upperLimit, format: .number)
-                     .frame(width: 50)
-                     .textFieldStyle(.roundedBorder)
-                     .multilineTextAlignment(.center)
-//                     .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/)
-                 Spacer()
-             }
-             Button(action: {
-                 if self.isRunning {
-                     self.stopTimer()
-                 } else {
-                     self.startTimer()
+                     
+                     
+                     
+                     Text("-").foregroundStyle(.secondary)
+                     TextField("Enter the upper interval limit", value: $upperLimit, format: .number)
+                         .frame(width: 50)
+                         .textFieldStyle(.roundedBorder)
+                         .multilineTextAlignment(.center)
+                     //                     .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/)
+                     Spacer()
                  }
-                 self.isRunning.toggle()
-             }) {
-                 Text(self.isRunning ? "Stop" : "Start")
-                     .padding()
-                     .background(Color.blue)
-                     .foregroundColor(.white)
-                     .cornerRadius(10)
+                 Button(action: {
+                     if self.isRunning {
+                         self.stopTimer()
+                     } else {
+                         self.startTimer()
+                     }
+                     self.isRunning.toggle()
+                 }) {
+                     Text(self.isRunning ? "Stop" : "Start")
+                         .padding()
+                 }
+                 .disabled(upperLimit<lowerLimit)
+                 .buttonStyle(BorderlessButtonStyle()) // so that only clicking in the frame triggers the button
+                 .border(.red)
              }
+             // make another VStack and print the trigger times of the run through 
          }
      }
 
