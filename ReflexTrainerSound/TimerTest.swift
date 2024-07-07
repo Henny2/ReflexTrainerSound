@@ -13,12 +13,13 @@ struct TimerTest: View {
     @State private var isRunning = false
     @State private var upperLimit = 30.0
     @State private var lowerLimit = 10.0
+    @State private var intervals: [Double] = []
     var audioPlayer = AudioPlayerClass()
 
      var body: some View {
          Form {
              VStack(alignment: .center) {
-                 Text("Lower interval limit - Upper interval limit")
+                 Text("Interval limits in seconds")
                  HStack{
                      Spacer()
                      TextField("Enter the lower interval limit", value: $lowerLimit, format: .number)
@@ -51,10 +52,19 @@ struct TimerTest: View {
                  }
                  .disabled(upperLimit<lowerLimit)
                  .buttonStyle(BorderlessButtonStyle()) // so that only clicking in the frame triggers the button
-                 .border(.red)
+//                 .border(.red)
              }
-             // make another VStack and print the trigger times of the run through 
+             // make another VStack and print the trigger times of the run through
+             Section("Intervals") {
+                 List() {
+                     ForEach(intervals, id: \.self) {
+                             Text("\($0, specifier: "%.1f")")
+                         }
+                     
+                 }
+             }
          }
+        
      }
 
      private func startTimer() {
@@ -73,6 +83,7 @@ struct TimerTest: View {
              .sink { _ in
                  audioPlayer.playSound()
                  print("Timer triggered at interval: \(randomInterval) seconds")
+                 intervals.append(randomInterval)
                  self.timer?.cancel()
                  self.scheduleTimer() // Schedule the timer again with a new random interval
              }
