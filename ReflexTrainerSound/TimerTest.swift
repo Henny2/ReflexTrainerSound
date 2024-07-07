@@ -8,11 +8,14 @@
 import SwiftUI
 import Combine
 
+// need to make sure the sounds are playing even if silent mode is on
+//https://developer.apple.com/documentation/avfaudio/avaudiosession/category/1616509-playback
+
 struct TimerTest: View {
     @State private var timer: AnyCancellable?
     @State private var isRunning = false
-    @State private var upperLimit = 30.0
-    @State private var lowerLimit = 10.0
+    @State private var upperLimit = 5.0
+    @State private var lowerLimit = 1.0
     @State private var intervals: [Double] = []
     var audioPlayer = AudioPlayerClass()
 
@@ -52,7 +55,9 @@ struct TimerTest: View {
                  }
                  .disabled(upperLimit<lowerLimit)
                  .buttonStyle(BorderlessButtonStyle()) // so that only clicking in the frame triggers the button
-//                 .border(.red)
+                 Button("Reset", action: reset)
+                 .disabled(intervals.count<=0 || isRunning)
+                 .buttonStyle(BorderlessButtonStyle())
              }
              // make another VStack and print the trigger times of the run through
              Section("Intervals") {
@@ -66,6 +71,11 @@ struct TimerTest: View {
          }
         
      }
+    private func reset() {
+        intervals = []
+        upperLimit = 5.0
+        lowerLimit = 1.0
+    }
 
      private func startTimer() {
          scheduleTimer()
