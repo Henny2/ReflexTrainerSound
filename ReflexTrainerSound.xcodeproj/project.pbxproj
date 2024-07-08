@@ -17,7 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4025239B2C2E90140053A84E /* ReflexTrainerSound.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReflexTrainerSound.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4025239B2C2E90140053A84E /* FAST POP UPS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FAST POP UPS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4025239E2C2E90140053A84E /* ReflexTrainerSoundApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReflexTrainerSoundApp.swift; sourceTree = "<group>"; };
 		402523A02C2E90140053A84E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		402523A22C2E90150053A84E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -50,7 +50,7 @@
 		4025239C2C2E90140053A84E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4025239B2C2E90140053A84E /* ReflexTrainerSound.app */,
+				4025239B2C2E90140053A84E /* FAST POP UPS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -95,7 +95,7 @@
 			);
 			name = ReflexTrainerSound;
 			productName = ReflexTrainerSound;
-			productReference = 4025239B2C2E90140053A84E /* ReflexTrainerSound.app */;
+			productReference = 4025239B2C2E90140053A84E /* FAST POP UPS.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -301,7 +301,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.henny2.ReflexTrainerSound;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "FAST POP UPS";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -331,7 +331,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.henny2.ReflexTrainerSound;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "FAST POP UPS";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
