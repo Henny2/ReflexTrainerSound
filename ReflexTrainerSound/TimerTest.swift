@@ -20,54 +20,71 @@ struct TimerTest: View {
     @State private var upperLimit = 5.0
     @State private var lowerLimit = 1.0
     @State private var intervals: [Double] = []
+    @FocusState private var lowerLimitIsFocused: Bool
+    @FocusState private var upperLimitIsFocused: Bool
     var audioPlayer = AudioPlayerClass()
     
     
     var body: some View {
-        Form {
-            VStack(alignment: .center) {
-                Text("Interval limits in seconds")
-                HStack{
-                    Spacer()
-                    TextField("Enter the lower interval limit", value: $lowerLimit, format: .number)
-                        .frame(width: 50)
-                        .multilineTextAlignment(.center)
-                        .textFieldStyle(.roundedBorder)
-                    
-                    
-                    
-                    
-                    Text("-").foregroundStyle(.secondary)
-                    TextField("Enter the upper interval limit", value: $upperLimit, format: .number)
-                        .frame(width: 50)
-                        .textFieldStyle(.roundedBorder)
-                        .multilineTextAlignment(.center)
-                    Spacer()
-                }
-                Button(action: {
-                    if self.isRunning {
-                        self.stopTimer()
-                    } else {
-                        self.startTimer()
+        NavigationStack{
+            Form {
+                VStack(alignment: .center) {
+                    Text("Interval limits in seconds")
+                    HStack{
+                        Spacer()
+                        TextField("", value: $lowerLimit, format: .number)
+                            .frame(width: 50)
+                            .multilineTextAlignment(.center)
+                            .textFieldStyle(.roundedBorder)
+                            .keyboardType(.numberPad)
+                            .focused($lowerLimitIsFocused)
+                        
+                        
+                        
+                        
+                        Text("-").foregroundStyle(.secondary)
+                        TextField("", value: $upperLimit, format: .number)
+                            .frame(width: 50)
+                            .textFieldStyle(.roundedBorder)
+                            .multilineTextAlignment(.center)
+                            .keyboardType(.numberPad)
+                            .focused($upperLimitIsFocused)
+                        Spacer()
                     }
-                    self.isRunning.toggle()
-                }) {
-                    Text(self.isRunning ? "Stop" : "Start")
-                        .padding()
+                    Button(action: {
+                        if self.isRunning {
+                            self.stopTimer()
+                        } else {
+                            self.startTimer()
+                        }
+                        self.isRunning.toggle()
+                    }) {
+                        Text(self.isRunning ? "Stop" : "Start")
+                            .padding()
+                    }
+                    .disabled(upperLimit<lowerLimit)
+                    .buttonStyle(BorderlessButtonStyle()) // so that only clicking in the frame triggers the button
+                    Button("Reset", action: reset)
+                        .disabled(intervals.count<=0 || isRunning)
+                        .buttonStyle(BorderlessButtonStyle())
                 }
-                .disabled(upperLimit<lowerLimit)
-                .buttonStyle(BorderlessButtonStyle()) // so that only clicking in the frame triggers the button
-                Button("Reset", action: reset)
-                    .disabled(intervals.count<=0 || isRunning)
-                    .buttonStyle(BorderlessButtonStyle())
+                // make another VStack and print the trigger times of the run through
+                Section("Intervals") {
+                    List() {
+                        ForEach(intervals, id: \.self) {
+                            Text("\($0, specifier: "%.1f")")
+                        }
+                        
+                    }
+                }
             }
-            // make another VStack and print the trigger times of the run through
-            Section("Intervals") {
-                List() {
-                    ForEach(intervals, id: \.self) {
-                        Text("\($0, specifier: "%.1f")")
+            .navigationTitle("POP UP NOW")
+            .toolbar {
+                if lowerLimitIsFocused || upperLimitIsFocused {
+                    Button("Done"){
+                        lowerLimitIsFocused = false
+                        upperLimitIsFocused = false
                     }
-                    
                 }
             }
         }
