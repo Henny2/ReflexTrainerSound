@@ -54,8 +54,10 @@ struct TimerTest: View {
                     Button(action: {
                         if self.isRunning {
                             self.stopTimer()
+                            UIApplication.shared.isIdleTimerDisabled = false
                         } else {
                             self.startTimer()
+                            UIApplication.shared.isIdleTimerDisabled = true
                         }
                         self.isRunning.toggle()
                     }) {
@@ -65,7 +67,8 @@ struct TimerTest: View {
                     .disabled(upperLimit<lowerLimit)
                     .buttonStyle(BorderlessButtonStyle()) // so that only clicking in the frame triggers the button
                     Button("Reset", action: reset)
-                        .disabled(intervals.count<=0 || isRunning)
+//                        .disabled(intervals.count<=0 || isRunning)
+                        .disabled(isRunning) // resetting the change of interval makes sense as well, so reset only disabled when running
                         .buttonStyle(BorderlessButtonStyle())
                 }
                 // make another VStack and print the trigger times of the run through
@@ -77,6 +80,9 @@ struct TimerTest: View {
                         
                     }
                 }
+            }
+            .onAppear{
+                UIApplication.shared.isIdleTimerDisabled = true
             }
             .navigationTitle("POP UP NOW")
             .toolbar {
@@ -94,6 +100,7 @@ struct TimerTest: View {
         intervals = []
         upperLimit = 5.0
         lowerLimit = 1.0
+        
     }
     
     private func startTimer() {
