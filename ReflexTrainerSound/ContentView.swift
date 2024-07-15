@@ -13,27 +13,51 @@ import AVFoundation
 
 struct ContentView: View {
     var audioPlayer = AudioPlayerClass()
+    @State private var isRunning = false
 
     var body: some View {
-//        Button("Play sound"){
-//            AudioServicesPlaySystemSound(1103)
-//            // test
-//        }
         VStack {
-                   Button(action: {
-                       audioPlayer.playSound()
-                   }) {
-                       Text("Play Sound")
-                           .font(.largeTitle)
-                           .padding()
-                           .background(Color.blue)
-                           .foregroundColor(.white)
-                           .cornerRadius(10)
-                   }
-               }
+            Button(action: {
+                if self.isRunning {
+                    // stop running
+                    print("stop")
+                    do {
+                        try AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
+                        try AVAudioSession.sharedInstance().setCategory(.ambient, mode: .default)
+                        try AVAudioSession.sharedInstance().setActive(true)
+                    }
+                    catch {
+                        print("New audio session for ambient cannot be initialized")
+                    }
+                                          
+//                    do {
+//                        try AVAudioSession.sharedInstance().setCategory(.ambient, mode: .default)
+//                        try AVAudioSession.sharedInstance().setActive(true)
+//                    }
+//                    catch {
+//                        print("New audio session for ambient cannot be initialized")
+//                    }
+//                    UIApplication.shared.isIdleTimerDisabled = false
+                } else {
+                    // start running
+                    do {
+//                        try AVAudioSession.sharedInstance().setCategory(.ambient, mode: .default)
+                        try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [.duckOthers])
+                        try AVAudioSession.sharedInstance().setActive(true)
+                    }
+                    catch {
+                        print("Could not create audio session")
+                    }
+                    audioPlayer.playSound()
+                    UIApplication.shared.isIdleTimerDisabled = true
+                }
+                self.isRunning.toggle()
+            }) {
+                Text(self.isRunning ? "Stop" : "Start")
+                    .padding()
+            }
+        }
     }
-    
-
 }
 
 #Preview {

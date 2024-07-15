@@ -16,19 +16,19 @@ class AudioPlayerClass: NSObject, AVAudioPlayerDelegate {
     
     func playSound() {
         // creating an audio session to change how the audio is gonna be played
-        do {
-            // playback:stop existing audio that is playing
-            // ambient: music keeps playing
-            // playback with "duckOthers" is a mix of both
-            //using ambient because I want to be able to listen to music at the same time
-            try AVAudioSession.sharedInstance().setCategory(.ambient, mode: .default)
-            // docking defeats the reflex purpose so not using it here, but together with deactivating the session after playing it would get back to normal volume afterwards
-//            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [.duckOthers])
-            try AVAudioSession.sharedInstance().setActive(true)
-        }
-        catch {
-            print("Could not create audio session")
-        }
+//        do {
+//            // playback:stop existing audio that is playing
+//            // ambient: music keeps playing
+//            // playback with "duckOthers" is a mix of both
+//            //using ambient because I want to be able to listen to music at the same time
+//            try AVAudioSession.sharedInstance().setCategory(.ambient, mode: .default)
+//            // docking defeats the reflex purpose so not using it here, but together with deactivating the session after playing it would get back to normal volume afterwards
+////            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [.duckOthers])
+//            try AVAudioSession.sharedInstance().setActive(true)
+//        }
+//        catch {
+//            print("Could not create audio session")
+//        }
         guard let path = Bundle.main.path(forResource: "refereeWhistle", ofType:"mp3") else {
             print("Cannot find file")
             return }
@@ -46,9 +46,9 @@ class AudioPlayerClass: NSObject, AVAudioPlayerDelegate {
     }
     // not gonna enforce the finishing because the time intervals might be too short, so just leaving this here for knowledge :)
     // this is also the reason I am not resetting the Audio Session as recommended here https://blog.kulman.sk/correctly-playing-audio-in-ios-apps/
-    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        print("Did finish Playing")
-        // this resets the volume from "dockingOthers" but I don't like it in the reflex setting so not necessary here
-        try! AVAudioSession.sharedInstance().setActive(false)
-       }
+//    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+//        print("Did finish Playing")
+//        // this resets the volume from "dockingOthers" but I don't like it in the reflex setting so not necessary here
+//        try! AVAudioSession.sharedInstance().setActive(false)
+//       }
 }

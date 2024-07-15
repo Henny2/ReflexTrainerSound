@@ -54,8 +54,23 @@ struct TimerTest: View {
                     Button(action: {
                         if self.isRunning {
                             self.stopTimer()
+                            do {
+                                try AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
+                                try AVAudioSession.sharedInstance().setCategory(.ambient, mode: .default)
+                                try AVAudioSession.sharedInstance().setActive(true)
+                            }
+                            catch {
+                                print("New audio session for ambient cannot be initialized")
+                            }
                             UIApplication.shared.isIdleTimerDisabled = false
                         } else {
+                            do {
+                                try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [.duckOthers])
+                                try AVAudioSession.sharedInstance().setActive(true)
+                            }
+                            catch {
+                                print("Could not create audio session")
+                            }
                             self.startTimer()
                             UIApplication.shared.isIdleTimerDisabled = true
                         }
@@ -82,7 +97,7 @@ struct TimerTest: View {
                 }
             }
             .onAppear{
-                UIApplication.shared.isIdleTimerDisabled = true
+                UIApplication.shared.isIdleTimerDisabled = false
             }
             .navigationTitle("POP UP NOW")
             .toolbar {
