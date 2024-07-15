@@ -54,25 +54,27 @@ struct TimerTest: View {
                     Button(action: {
                         if self.isRunning {
                             self.stopTimer()
+                            UIApplication.shared.isIdleTimerDisabled = false
                             do {
                                 try AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
                                 try AVAudioSession.sharedInstance().setCategory(.ambient, mode: .default)
                                 try AVAudioSession.sharedInstance().setActive(true)
+                                
                             }
                             catch {
                                 print("New audio session for ambient cannot be initialized")
                             }
-                            UIApplication.shared.isIdleTimerDisabled = false
                         } else {
+                            self.startTimer()
+                            UIApplication.shared.isIdleTimerDisabled = true
                             do {
+                                
                                 try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [.duckOthers])
                                 try AVAudioSession.sharedInstance().setActive(true)
                             }
                             catch {
                                 print("Could not create audio session")
                             }
-                            self.startTimer()
-                            UIApplication.shared.isIdleTimerDisabled = true
                         }
                         self.isRunning.toggle()
                     }) {
@@ -96,9 +98,9 @@ struct TimerTest: View {
                     }
                 }
             }
-            .onAppear{
-                UIApplication.shared.isIdleTimerDisabled = false
-            }
+//            .onAppear{
+//                UIApplication.shared.isIdleTimerDisabled = false
+//            }
             .navigationTitle("POP UP NOW")
             .toolbar {
                 if lowerLimitIsFocused || upperLimitIsFocused {
@@ -107,6 +109,9 @@ struct TimerTest: View {
                         upperLimitIsFocused = false
                     }
                 }
+            }
+            .onAppear{
+                UIApplication.shared.isIdleTimerDisabled = false
             }
         }
         

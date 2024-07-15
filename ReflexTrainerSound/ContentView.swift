@@ -49,7 +49,7 @@ struct ContentView: View {
                         print("Could not create audio session")
                     }
                     audioPlayer.playSound()
-                    UIApplication.shared.isIdleTimerDisabled = true
+//                    UIApplication.shared.isIdleTimerDisabled = true
                 }
                 self.isRunning.toggle()
             }) {
