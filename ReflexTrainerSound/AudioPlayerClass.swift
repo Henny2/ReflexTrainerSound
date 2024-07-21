@@ -29,7 +29,8 @@ class AudioPlayerClass: NSObject, AVAudioPlayerDelegate {
 //        catch {
 //            print("Could not create audio session")
 //        }
-        guard let path = Bundle.main.path(forResource: "refereeWhistle", ofType:"mp3") else {
+//        guard let path = Bundle.main.path(forResource: "refereeWhistle", ofType:"mp3") else {
+        guard let path = Bundle.main.path(forResource: "beepSound", ofType:"mp3") else {
             print("Cannot find file")
             return }
         let url = URL(fileURLWithPath: path)
