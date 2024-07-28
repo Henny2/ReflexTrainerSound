@@ -60,7 +60,6 @@
 		4025239D2C2E90140053A84E /* ReflexTrainerSound */ = {
 			isa = PBXGroup;
 			children = (
-				402523D32C570B3E0053A84E /* PrivacyPolicy */,
 				402523AC2C32034F0053A84E /* Info.plist */,
 				4025239E2C2E90140053A84E /* ReflexTrainerSoundApp.swift */,
 				402523B12C3209BB0053A84E /* refereeWhistle.mp3 */,
@@ -80,13 +79,6 @@
 				402523A52C2E90150053A84E /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		402523D32C570B3E0053A84E /* PrivacyPolicy */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = PrivacyPolicy;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
